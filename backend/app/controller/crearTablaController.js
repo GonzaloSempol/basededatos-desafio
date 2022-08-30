@@ -5,12 +5,44 @@ async function crearTablaController (req,res) {
     const {body: {tableName, tableStructure}} = req; 
     let sqlString = 'CREATE TABLE IF NOT EXISTS public."' + tableName + '" ( '
     
-    tableStructure.forEach(element => {
-        sqlString += element.columnName + " " + element.type +", ";
-    });
+        
+   
+    let sqlStringPKs = "PRIMARY KEY(";
+    let i = 0;
+    let pkQuantity=0;
+    //recorro el array de las columnas
+    while(i < tableStructure.length){
+        
+        sqlString += tableStructure[i].columnName + " " + tableStructure[i].type + ((i != tableStructure.length-1) ? ", " : ""); //el ultimo no lleva coma
+        
+        //Si es PK, genero la linea SQL para reflejarlo
+        if (tableStructure[i].pk == "true"){
+            if (pkQuantity > 0){
+                sqlStringPKs += ", " + tableStructure[i].columnName
+            }
+            else{
+                sqlStringPKs += tableStructure[i].columnName
+                pkQuantity++;
+            }
+        }
+        
+        
+        i++;
+    }
+    
+    
+    sqlStringPKs += ")"
 
-    sqlString += ")"
+    //Agrego el final para colocar las PRIMARY KEYS(key1, .. keyN)
+    if(pkQuantity > 0){
+        sqlString += ", " + sqlStringPKs + ")"
+    }else{
+        sqlString += ")"
+    }
+    
 
-    return res.send(sqlString); 
+    const response = await pgClient.query(sqlString)
+
+    return res.send(response); 
 }
 module.exports = crearTablaController
