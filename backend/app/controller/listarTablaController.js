@@ -1,8 +1,19 @@
 const pgClient = require("../db/postgres")
 
 async function listarTablaController (req,res) {
-    const {body: {tableName}} = req; 
-    const { rows } = await pgClient.query('SELECT * FROM public."'+tableName+'"')
+    const {body: {tableName, searchParameters}} = req; 
+
+    let sqlString = 'SELECT * FROM public."'+tableName+'" WHERE '
+    
+    let i = 0;
+    //recorro el array de los searchParameters y construyo el string
+     while(i < searchParameters.length){
+        
+        sqlString += searchParameters[i].columnName + searchParameters[i].operator +  searchParameters[i].value + ((i != searchParameters.length-1) ? " AND " : ""); //el ultimo no lleva coma
+        i++;
+    }
+    
+    const { rows } = await pgClient.query(sqlString)
     res.send(rows)
 }
 module.exports = listarTablaController
