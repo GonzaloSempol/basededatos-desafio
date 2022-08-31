@@ -1,12 +1,10 @@
 const pgClient = require("../db/postgres")
 async function crearTablaController (req,res) {
 
-    
-    const {body: {tableName, tableStructure}} = req; 
+    try{
+        const {body: {tableName, tableStructure}} = req; 
     let sqlString = 'CREATE TABLE IF NOT EXISTS public."' + tableName + '" ( '
-    
-        
-   
+       
     let sqlStringPKs = "PRIMARY KEY(";
     let i = 0;
     let pkQuantity=0;
@@ -44,5 +42,11 @@ async function crearTablaController (req,res) {
     const response = await pgClient.query(sqlString)
 
     return res.send(response); 
+
+    }catch(e){
+        console.log(e)
+        res.send(e)
+    }
+    
 }
 module.exports = crearTablaController
