@@ -16,7 +16,7 @@ router.post('/describirTabla', describirTablaController)
 
 router.post('/insertarFila', insertarFilaController)
 router.patch('/modificarFila', modificarFilaController)
-router.delete('/eliminarFila', eliminarFilaController)
+router.post('/eliminarFila', eliminarFilaController)
 
 
 

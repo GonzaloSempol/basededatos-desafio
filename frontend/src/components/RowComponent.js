@@ -11,13 +11,13 @@ import {
     Button,
     ButtonGroup,
   } from '@chakra-ui/react'
-
+import ButtonDeleteComponent from './ButtonDeleteComponent'
 function RowComponent(props){
+
 
 
     return ( 
        
-        
         
         <Tr>
         {
@@ -26,7 +26,8 @@ function RowComponent(props){
         })}
         
         <Td><ButtonGroup size='sm' isAttached variant='outline'>
-            <Button colorScheme='blue'>Modificar</Button><Button colorScheme='red'>Eliminar</Button>
+            
+            <Button colorScheme='blue' data={props.row} >Modificar</Button><ButtonDeleteComponent  data={props.row}/>
             </ButtonGroup >
         </Td>
        

@@ -44,6 +44,10 @@ function App() {
   
 
   },[])
+
+  async function deleteRow(){
+    
+  }
     
   
 

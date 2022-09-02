@@ -2,7 +2,7 @@ const pgClient = require("../db/postgres")
 async function eliminarFilaController (req,res) {
     try{
 
-    
+        console.log(req.body)
         const {body: {tableName, tableIDs}} = req; 
         let sqlString = 'DELETE FROM public."' + tableName +'" WHERE '
         
@@ -10,8 +10,7 @@ async function eliminarFilaController (req,res) {
         
         //recorro el array de los IDs
         while(i < tableIDs.length){
-            
-            sqlString += tableIDs[i].columnName + "=" + tableIDs[i].value + ((i != tableIDs.length-1) ? " AND " : ""); //el ultimo (o si es uno solo) no lleva AND
+            sqlString += tableIDs[i].columnName + '=' + (Number.isNaN(Number(tableIDs[i].value)) ? ("'" + tableIDs[i].value +"'") : tableIDs[i].value ) + ((i != tableIDs.length-1) ? ' AND ' : ''); //si no es number le pongo comillas, el ultimo (o si es uno solo) no lleva AND
             i++;
         }
 
