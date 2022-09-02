@@ -11,8 +11,8 @@ const eliminarFilaController = require('../controller/eliminarFilaController')
 
 
 router.post('/creartabla', crearTablaController)
-router.get('/listarTabla', listarTablaController)
-router.get('/describirTabla', describirTablaController)
+router.post('/listarTabla', listarTablaController)
+router.post('/describirTabla', describirTablaController)
 
 router.post('/insertarFila', insertarFilaController)
 router.patch('/modificarFila', modificarFilaController)
