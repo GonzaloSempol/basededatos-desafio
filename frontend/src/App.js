@@ -23,32 +23,54 @@ function App() {
   
 
   //Al cargar la pagina
-
-  const payload = {
-    "tableName":"TablaNueva",
-    "searchParameters": [
-      {"columnName":"id","value":"0", "operator":">"},
-      ]                    
-  }
-
+  
   useEffect(() =>{
+    refreshRows()
+  },[])
+
+
+  const refreshRows = () => {
+  
+    const payload = {
+      "tableName":"TablaNueva",
+      "searchParameters": [
+        {"columnName":"id","value":"0", "operator":">"},
+        ]                    
+    }
+
     api.post('/describirTabla',payload).then(res => {
       setHeaders(res.data)
       console.log(res.data)
     })
- 
+
     api.post('/listarTabla',payload).then(res => {
       setRows(res.data)   
       console.log(res.data)
     })
-  
 
-  },[])
-
-  async function deleteRow(){
-    
   }
+
+  const deleteRow = (data) =>{
     
+    let payload = {
+      "tableName":"TablaNueva",
+      "tableIDs": [
+        ]                    
+    }        
+
+      Object.entries(data).map(item => {
+          return payload.tableIDs.push({
+              columnName: item[0], 
+              value: (item[1]),
+        })
+      })
+
+  
+  api.post('/eliminarFila',payload).then(res => {
+    refreshRows()
+    })
+
+  }
   
 
   return (
@@ -56,7 +78,7 @@ function App() {
       <div className="App">
       <header className="App-header">
       <Button colorScheme='green'>Insertar Nueva Fila</Button>
-        <TableComponent headers={headers} rows={rows}/>         
+        <TableComponent headers={headers} rows={rows} deleteRow={deleteRow}/>         
       </header>
     </div>
     </ChakraProvider>

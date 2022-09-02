@@ -27,7 +27,7 @@ function RowComponent(props){
         
         <Td><ButtonGroup size='sm' isAttached variant='outline'>
             
-            <Button colorScheme='blue' data={props.row} >Modificar</Button><ButtonDeleteComponent  data={props.row}/>
+            <Button colorScheme='blue' data={props.row} >Modificar</Button><ButtonDeleteComponent  data={props.row} deleteRow={props.deleteRow}/>
             </ButtonGroup >
         </Td>
        

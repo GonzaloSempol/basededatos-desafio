@@ -34,7 +34,7 @@ import RowComponent from './RowComponent';
                 
                 <Tbody>
                   {props.rows.map((row) => {
-                    return(<RowComponent row={row} />)
+                    return(<RowComponent row={row} deleteRow={props.deleteRow} />)
                   })}
                 </Tbody>
 

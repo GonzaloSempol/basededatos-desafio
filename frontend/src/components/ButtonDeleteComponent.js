@@ -16,22 +16,7 @@ import {
 
 function ButtonDeleteComponent(props){
     return(
-    <Button colorScheme='red' onClick={()=>{
-               
-
-            Object.entries(props.data).map(item => {
-                payload.tableIDs.push({
-                    columnName: item[0], 
-                    value: (item[1]),
-              })
-            })
-     
-        
-        api.post('/eliminarFila',payload).then(res => {
-            console.log(payload)
-          })
-        
-    }}> Eliminar </Button>
+    <Button colorScheme='red' onClick={() => {props.deleteRow(props.data)}}> Eliminar </Button>
     )
 }
 
