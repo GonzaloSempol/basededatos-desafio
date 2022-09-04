@@ -15,39 +15,40 @@ import RowComponent from './RowComponent';
 
   function TableComponent(props){
    
-
+    console.log(props.selectedTable)
+    if(props.selectedTable !== '' ){
     
-    return (
-          <>
-              <TableContainer>
-              <Table variant='simple'>
-                
-                <TableCaption></TableCaption>
-                <Thead> 
-                  <Tr>            
-                  <HeadComponent headers={props.headers} />
-                  <Th></Th>
-                  </Tr>
-                </Thead>
-                
-                
-                
-                <Tbody>
-                  {props.rows.map((row) => {
-                    return(<RowComponent selectedTable={props.selectedTable} row={row} headers={props.headers} deleteRow={props.deleteRow} modifyRow={props.modifyRow}  />)
-                  })}
-                </Tbody>
-
-                <Tfoot>
-                  <Tr>
+      return (
+            <>
+                <TableContainer>
+                <Table variant='simple'>
                   
-                  </Tr>
-                </Tfoot>
-              </Table>
-            </TableContainer>
-          </>
-          )
-    
+                  <TableCaption></TableCaption>
+                  <Thead> 
+                    <Tr>            
+                    <HeadComponent headers={props.headers} />
+                    <Th></Th>
+                    </Tr>
+                  </Thead>
+                  
+                  
+                  
+                  <Tbody>
+                    {props.rows.map((row) => {
+                      return(<RowComponent selectedTable={props.selectedTable} row={row} headers={props.headers} deleteRow={props.deleteRow} modifyRow={props.modifyRow}  />)
+                    })}
+                  </Tbody>
+
+                  <Tfoot>
+                    <Tr>
+                    
+                    </Tr>
+                  </Tfoot>
+                </Table>
+              </TableContainer>
+            </>
+            )
+  }
 
 
 }

@@ -29,49 +29,51 @@ function ButtonInsertNewRow(props) {
   
 
   
+    console.log(props.selectedTable)
+    if(props.selectedTable !== '' ){
     
+      return (
+        <>
+          
+          <Button colorScheme='green' onClick={onOpen}>Insertar Nueva Fila</Button>
+          
     
-    return (
-      <>
-        
-        <Button colorScheme='green' onClick={onOpen}>Insertar Nueva Fila</Button>
-        
-  
-        <Modal
-          initialFocusRef={initialRef}
-          finalFocusRef={finalRef}
-          isOpen={isOpen}
-          onClose={onClose}
-        >
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Insertar una nueva Fila</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody pb={6}>
-            
-            {   props.headers.map((header) => {
-                    return( <FormControl>
-                                <FormLabel>{header.column_name} </FormLabel>
-                                <Input placeholder='' name={header.column_name} onChange={(e) => handleChange(e)} />
-                            </FormControl>
-                        )
-                })}
-
-   
+          <Modal
+            initialFocusRef={initialRef}
+            finalFocusRef={finalRef}
+            isOpen={isOpen}
+            onClose={onClose}
+          >
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Insertar una nueva Fila</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody pb={6}>
               
-            </ModalBody>
-  
-            <ModalFooter>
-              <Button colorScheme='green' onClick={() => {props.insertRow(props.selectedTable, formState); onClose();}} mr={3}  >
-                Save
-              </Button>
-              <Button onClick={onClose}>Cancel</Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-        
-      </>
-    )
+              {   props.headers.map((header) => {
+                      return( <FormControl>
+                                  <FormLabel>{header.column_name} </FormLabel>
+                                  <Input placeholder='' name={header.column_name} onChange={(e) => handleChange(e)} />
+                              </FormControl>
+                          )
+                  })}
+
+    
+                
+              </ModalBody>
+    
+              <ModalFooter>
+                <Button colorScheme='green' onClick={() => {props.insertRow(props.selectedTable, formState); onClose();}} mr={3}  >
+                  Save
+                </Button>
+                <Button onClick={onClose}>Cancel</Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+          
+        </>
+      )
+  }
   
 }
 

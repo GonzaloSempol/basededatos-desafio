@@ -76,28 +76,32 @@ function ButtonCreateTableComponent(props) {
             <ModalHeader>Crear Tabla</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
-            
+            <FormControl>
+            <FormLabel>Tabla</FormLabel>
             <Input placeholder='Nombre de la tabla' htmlSize={20} width='auto' name='Tabla' onChange={handleChangeTableName} />
-
-            {inputList.map((x, i) => {
-            return(
-                <>
-                    
-                    <FormControl>
-                        <SimpleGrid columns={4} spacing={2}>
-                            
-                            <Box> <Input  htmlSize={8} width='auto' placeholder='Nombre' name='columnName' onChange={e => handleInputChange(e, i)} /> </Box>
-                            <Box><Input htmlSize={8} width='auto'  placeholder='Tipo' name='type' onChange={e => handleInputChange(e, i)} /></Box>
-                            <Box><Input htmlSize={2} width='auto'  placeholder='Es PK' name='pk' onChange={e => handleInputChange(e, i)} /></Box>
-                            <Box>{inputList.length !== 1 && <Button colorScheme='gray' onClick={() => handleRemoveClick(i)}>Quitar Campo</Button>}</Box>
-                            <Box>{inputList.length - 1 === i && <Button colorScheme='blue' onClick={handleAddClick} >Agregar Campo</Button>}</Box>
-                        </SimpleGrid>
-                    </FormControl>    
-                </>
+            </FormControl>
             
+            <FormControl>
+            <FormLabel>Atributos</FormLabel>
+                {inputList.map((x, i) => {
+                return(
+                    <>
+                        
+                        <FormControl>
+                            <SimpleGrid columns={4} spacing={2}>
+                                
+                                <Box> <Input  htmlSize={8} width='auto' placeholder='Nombre' name='columnName' onChange={e => handleInputChange(e, i)} /> </Box>
+                                <Box><Input htmlSize={8} width='auto'  placeholder='Tipo' name='type' onChange={e => handleInputChange(e, i)} /></Box>
+                                <Box><Input htmlSize={2} width='auto'  placeholder='Es PK' name='pk' onChange={e => handleInputChange(e, i)} /></Box>
+                                <Box>{inputList.length !== 1 && <Button colorScheme='gray' onClick={() => handleRemoveClick(i)}>Quitar Campo</Button>}</Box>
+                                <Box>{inputList.length - 1 === i && <Button colorScheme='blue' onClick={handleAddClick} >Agregar Campo</Button>}</Box>
+                            </SimpleGrid>
+                        </FormControl>    
+                    </>
+                
+                    )}
                 )}
-            )}
-               
+                </FormControl>  
                
 
    
@@ -106,9 +110,9 @@ function ButtonCreateTableComponent(props) {
   
             <ModalFooter>
               <Button colorScheme='green' onClick={() => {props.createTable(tableName, inputList); onClose();}} mr={3}  >
-                Save
+                Guardar!
               </Button>
-              <Button onClick={onClose}>Cancel</Button>
+              <Button onClick={onClose}>Cancelar</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>

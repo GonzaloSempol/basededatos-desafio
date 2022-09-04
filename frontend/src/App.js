@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, VStack, Container } from '@chakra-ui/react'
 import { useEffect, useState } from 'react';
 import './App.css';
 
@@ -168,15 +168,23 @@ function App() {
 
   return (
     <ChakraProvider>
-      <div className="App">
+    <VStack>
+    
+    <Container maxW='60%' >
+      <box style={{padding: "50px"}}>
+      <div   className="App">
       <header className="App-header">
-      <ButtonCreateTableComponent createTable={createTable}/>
+      <ButtonCreateTableComponent createTable={createTable}/> 
       <TableSelectorComponent tables={tables} selectTable={selectTable} selectedTable={selectedTable} />
       <ButtonInsertNewRow selectedTable={selectedTable} headers={headers} insertRow={insertRow}>  Insertar Nueva Fila</ButtonInsertNewRow>
         <TableComponent selectedTable={selectedTable} headers={headers} rows={rows} deleteRow={deleteRow} modifyRow={modifyRow} />         
       </header>
     </div>
+    </box>
+    </Container>
+    </VStack>
     </ChakraProvider>
+    
     
   );
 }
