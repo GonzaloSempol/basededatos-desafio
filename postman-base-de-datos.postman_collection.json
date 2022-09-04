@@ -1,0 +1,186 @@
+{
+	"info": {
+		"_postman_id": "74855bdc-27f8-4df5-a63b-19946e59722f",
+		"name": "base-de-datos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20530610"
+	},
+	"item": [
+		{
+			"name": "crearTabla",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tableName\":\"TablaNueva\",\r\n    \"tableStructure\": [\r\n            {\"columnName\":\"id\",\"type\":\"serial\", \"pk\":\"true\"},\r\n            {\"columnName\":\"nombre\",\"type\":\"character varying(25)\"},\r\n            {\"columnName\":\"descripcion\",\"type\":\"character varying(25)\"}\r\n            ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/creartabla",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"creartabla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listarTabla",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tableName\":\"TablaNueva\",\r\n     \"searchParameters\": [\r\n        {\"columnName\":\"id\",\"value\":\"2\", \"operator\":\">\"},\r\n         {\"columnName\":\"id\",\"value\":\"5\", \"operator\":\"<\"}\r\n        ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/listartabla",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"listartabla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modificarFila",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tableName\":\"TablaNueva\",\r\n    \"tableIDs\": [\r\n        {\"columnName\":\"id\",\"value\":\"3\"}\r\n        ],\r\n    \"tableStructure\": [\r\n            {\"columnName\":\"nombre\",\"newValue\":\"'Holaa3'\"},\r\n            {\"columnName\":\"descripcion\",\"newValue\":\"'Holaa4'\"}\r\n            ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/modificarfila",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"modificarfila"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "describirTabla",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tableName\":\"TablaNueva\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/describirTabla",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"describirTabla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "insertarFila",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tableName\":\"TablaNueva\",\r\n    \"tableStructure\": [\r\n            {\"columnName\":\"nombre\",\"value\":\"Prueba\"},\r\n            {\"columnName\":\"descripcion\",\"value\":\"Prueba2\"}\r\n            ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/insertarFila",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"insertarFila"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminarFila",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tableName\":\"TablaNueva\",\r\n    \"tableIDs\": [\r\n        {\"columnName\":\"id\",\"value\":\"'8'\"},\r\n        {\"columnName\":\"id2\",\"value\":\"8\"}\r\n        ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/eliminarFila",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eliminarFila"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllTablas",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
