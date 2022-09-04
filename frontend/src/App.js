@@ -172,7 +172,7 @@ function App() {
     
     <Container maxW='60%' >
       <box style={{padding: "50px"}}>
-      <div   className="App">
+      <div className="App">
       <header className="App-header">
       <ButtonCreateTableComponent createTable={createTable}/> 
       <TableSelectorComponent tables={tables} selectTable={selectTable} selectedTable={selectedTable} />
