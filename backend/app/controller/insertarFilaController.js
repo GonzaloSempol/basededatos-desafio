@@ -14,7 +14,7 @@ async function insertarFilaController (req,res) {
         while(i < tableStructure.length){
             
             sqlString += tableStructure[i].columnName + ((i != tableStructure.length-1) ? ", " : ""); //el ultimo no lleva coma
-            sqlStringValues +=  tableStructure[i].value + ((i != tableStructure.length-1) ? ", " : ""); //el ultimo no lleva coma
+            sqlStringValues +=  (Number.isNaN(Number(tableStructure[i].value)) ? ("'" + tableStructure[i].value +"'") : tableStructure[i].value ) + ((i != tableStructure.length-1) ? ", " : ""); //el ultimo no lleva coma
             i++;
         }
         sqlStringValues += ")"
