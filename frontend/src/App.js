@@ -7,7 +7,7 @@ import axios from 'axios'
 import TableComponent from './components/TableComponent';
 import ButtonInsertNewRow from './components/ButtonInsertNewRow';
 import TableSelectorComponent from './components/TableSelectorComponent'
-
+import ButtonCreateTableComponent from './components/ButtonCreateTableComponent'
 
 function App() {
 
@@ -51,9 +51,7 @@ function App() {
     if(selectedTable !== ''){
         const payload = {
           "tableName":selectedTable,
-          "searchParameters": [
-            {"columnName":"id","value":"0", "operator":">"},
-            ]                    
+          "searchParameters": []                    
         }
 
         api.post('/describirTabla',payload).then(res => {
@@ -89,6 +87,23 @@ function App() {
 
   }
 
+
+  const createTable = (tableName, tableStructure) =>{
+    let payload ={
+      "tableName":tableName,
+      "tableStructure": tableStructure
+    }
+    console.log('input data from form')
+    console.log(tableName)
+        
+    console.log('payload')
+    console.log(payload)
+    api.post('/crearTabla',payload).then(res => {
+      getAllTables()
+    })
+
+
+  }
 
   const insertRow = (selectedTable, data) =>{
     let payload ={
@@ -155,6 +170,7 @@ function App() {
     <ChakraProvider>
       <div className="App">
       <header className="App-header">
+      <ButtonCreateTableComponent createTable={createTable}/>
       <TableSelectorComponent tables={tables} selectTable={selectTable} selectedTable={selectedTable} />
       <ButtonInsertNewRow selectedTable={selectedTable} headers={headers} insertRow={insertRow}>  Insertar Nueva Fila</ButtonInsertNewRow>
         <TableComponent selectedTable={selectedTable} headers={headers} rows={rows} deleteRow={deleteRow} modifyRow={modifyRow} />         
