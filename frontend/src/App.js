@@ -6,11 +6,22 @@ import './App.css';
 import axios from 'axios'
 import TableComponent from './components/TableComponent';
 import ButtonInsertNewRow from './components/ButtonInsertNewRow';
-import ButtonModifyRow from './components/ButtonModifyRow';
+import TableSelectorComponent from './components/TableSelectorComponent'
+
+
 function App() {
 
 
   //hooks
+  const [tables, setTables] = useState([])
+  const [selectedTable, setSelectedTable] = useState('')
+  const selectTable = (tableName) => { //usada desde el option box
+      setSelectedTable(tableName)
+      refreshRows(selectedTable)
+  }
+
+
+
   const [rows, setRows] = useState([])
   const [headers, setHeaders] = useState([])
  
@@ -23,14 +34,21 @@ function App() {
 
   //Al cargar la pagina
   useEffect(() =>{
-    refreshRows()
+    refreshRows(selectedTable)
   },[])
 
 
-  const refreshRows = () => {
-  
+  const refreshRows = (selectedTable) => {
+   console.log("Tabla Seleccionada")
+   console.log(selectedTable)
+
+    api.get('/getAllTablas').then(res => {
+      setTables(res.data)
+      console.log(res.data)
+    })
+
     const payload = {
-      "tableName":"TablaNueva",
+      "tableName":selectedTable === '' ? "TablaNueva" : selectedTable,
       "searchParameters": [
         {"columnName":"id","value":"0", "operator":">"},
         ]                    
@@ -135,6 +153,7 @@ function App() {
     <ChakraProvider>
       <div className="App">
       <header className="App-header">
+      <TableSelectorComponent tables={tables} selectTable={selectTable}/>
       <ButtonInsertNewRow headers={headers} insertRow={insertRow}>  Insertar Nueva Fila</ButtonInsertNewRow>
         <TableComponent headers={headers} rows={rows} deleteRow={deleteRow} modifyRow={modifyRow} />         
       </header>
