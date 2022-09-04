@@ -65,7 +65,7 @@ function ButtonModifyRow(props) {
             </ModalBody>
   
             <ModalFooter>
-              <Button colorScheme='green' onClick={() => {props.modifyRow(oldData, formState); onClose();}} mr={3}  >
+              <Button colorScheme='green' onClick={() => {props.modifyRow(props.selectedTable, oldData, formState); onClose();}} mr={3}  >
                 Modificar!
               </Button>
               <Button onClick={onClose}>Cancel</Button>

@@ -30,7 +30,7 @@ function RowComponent(props){
         
         <Td><ButtonGroup size='sm' isAttached variant='outline'>
             
-            <ButtonModifyRow colorScheme='blue' data={props.row} modifyRow={props.modifyRow} > Modificar </ButtonModifyRow><ButtonDeleteComponent  data={props.row} deleteRow={props.deleteRow}/>
+            <ButtonModifyRow colorScheme='blue' data={props.row} selectedTable={props.selectedTable} modifyRow={props.modifyRow} > Modificar </ButtonModifyRow><ButtonDeleteComponent selectedTable={props.selectedTable} data={props.row} deleteRow={props.deleteRow}/>
             </ButtonGroup >
         </Td>
        

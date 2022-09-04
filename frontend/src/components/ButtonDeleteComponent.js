@@ -6,7 +6,7 @@ import {
 
 function ButtonDeleteComponent(props){
     return(
-    <Button colorScheme='red' onClick={() => {props.deleteRow(props.data)}}> Eliminar </Button>
+    <Button colorScheme='red' onClick={() => {props.deleteRow(props.selectedTable,props.data)}}> Eliminar </Button>
     )
 }
 

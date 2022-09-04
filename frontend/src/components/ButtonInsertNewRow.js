@@ -62,7 +62,7 @@ function ButtonInsertNewRow(props) {
             </ModalBody>
   
             <ModalFooter>
-              <Button colorScheme='green' onClick={() => {props.insertRow(formState); onClose();}} mr={3}  >
+              <Button colorScheme='green' onClick={() => {props.insertRow(props.selectedTable, formState); onClose();}} mr={3}  >
                 Save
               </Button>
               <Button onClick={onClose}>Cancel</Button>

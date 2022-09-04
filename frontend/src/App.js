@@ -15,12 +15,12 @@ function App() {
   //hooks
   const [tables, setTables] = useState([])
   const [selectedTable, setSelectedTable] = useState('')
+  
   const selectTable = (tableName) => { //usada desde el option box
+      
       setSelectedTable(tableName)
-      refreshRows(selectedTable)
+      refreshRows(tableName)
   }
-
-
 
   const [rows, setRows] = useState([])
   const [headers, setHeaders] = useState([])
@@ -34,42 +34,44 @@ function App() {
 
   //Al cargar la pagina
   useEffect(() =>{
+    getAllTables()
     refreshRows(selectedTable)
   },[])
 
-
-  const refreshRows = (selectedTable) => {
-   console.log("Tabla Seleccionada")
-   console.log(selectedTable)
-
+  const getAllTables = () => {
     api.get('/getAllTablas').then(res => {
       setTables(res.data)
       console.log(res.data)
     })
-
-    const payload = {
-      "tableName":selectedTable === '' ? "TablaNueva" : selectedTable,
-      "searchParameters": [
-        {"columnName":"id","value":"0", "operator":">"},
-        ]                    
-    }
-
-    api.post('/describirTabla',payload).then(res => {
-      setHeaders(res.data)
-      console.log(res.data)
-    })
-
-    api.post('/listarTabla',payload).then(res => {
-      setRows(res.data)   
-      console.log(res.data)
-    })
-
   }
 
-  const deleteRow = (data) =>{
+  const refreshRows = (selectedTable) => {
+    console.log('Selected Table')
+      console.log(selectedTable)
+    if(selectedTable !== ''){
+        const payload = {
+          "tableName":selectedTable,
+          "searchParameters": [
+            {"columnName":"id","value":"0", "operator":">"},
+            ]                    
+        }
+
+        api.post('/describirTabla',payload).then(res => {
+          setHeaders(res.data)
+          console.log(res.data)
+        })
+
+        api.post('/listarTabla',payload).then(res => {
+          setRows(res.data)   
+          console.log(res.data)
+        })
+    }
+  }
+
+  const deleteRow = (selectedTable, data) =>{
     
     let payload = {
-      "tableName":"TablaNueva",
+      "tableName":selectedTable,
       "tableIDs": []                    
     }        
 
@@ -81,16 +83,16 @@ function App() {
       })
   
      
-    api.post('/eliminarFila',payload).then(res => {
-      refreshRows()
+    api.post('/eliminarFila', payload).then(res => {
+      refreshRows(selectedTable)
     })
 
   }
 
 
-  const insertRow = (data) =>{
+  const insertRow = (selectedTable, data) =>{
     let payload ={
-      "tableName":"TablaNueva",
+      "tableName":selectedTable,
       "tableStructure": []
     }
     console.log('input data from form')
@@ -105,15 +107,15 @@ function App() {
     console.log('payload')
     console.log(payload)
     api.post('/insertarFila',payload).then(res => {
-      refreshRows()
+      refreshRows(selectedTable)
     })
 
 
   }
 
-  const modifyRow = (oldData, newData) =>{
+  const modifyRow = (selectedTable, oldData, newData) =>{
     let payload ={
-      "tableName":"TablaNueva",
+      "tableName":selectedTable,
       "tableIDs": [],   
       "tableStructure": []
     }
@@ -139,7 +141,7 @@ function App() {
     console.log('payload modify')
     console.log(payload)
     api.post('/modificarFila',payload).then(res => {
-      refreshRows()
+      refreshRows(selectedTable)
     })
 
 
@@ -153,9 +155,9 @@ function App() {
     <ChakraProvider>
       <div className="App">
       <header className="App-header">
-      <TableSelectorComponent tables={tables} selectTable={selectTable}/>
-      <ButtonInsertNewRow headers={headers} insertRow={insertRow}>  Insertar Nueva Fila</ButtonInsertNewRow>
-        <TableComponent headers={headers} rows={rows} deleteRow={deleteRow} modifyRow={modifyRow} />         
+      <TableSelectorComponent tables={tables} selectTable={selectTable} selectedTable={selectedTable} />
+      <ButtonInsertNewRow selectedTable={selectedTable} headers={headers} insertRow={insertRow}>  Insertar Nueva Fila</ButtonInsertNewRow>
+        <TableComponent selectedTable={selectedTable} headers={headers} rows={rows} deleteRow={deleteRow} modifyRow={modifyRow} />         
       </header>
     </div>
     </ChakraProvider>
