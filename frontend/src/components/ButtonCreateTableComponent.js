@@ -35,8 +35,9 @@ function ButtonCreateTableComponent(props) {
     };
     
     // handle click event of the Remove button
-    const handleRemoveClick = index => {
+    const handleRemoveClick = (index) => {
     const list = [...inputList];
+    console.log(list)
     list.splice(index, 1);
     setInputList(list);
     };
@@ -76,17 +77,18 @@ function ButtonCreateTableComponent(props) {
             <ModalCloseButton />
             <ModalBody pb={6}>
             
-            <Input placeholder='Nombre de la tabla' name='Tabla' onChange={handleChangeTableName} />
+            <Input placeholder='Nombre de la tabla' htmlSize={20} width='auto' name='Tabla' onChange={handleChangeTableName} />
 
             {inputList.map((x, i) => {
             return(
                 <>
                     
                     <FormControl>
-                        <SimpleGrid columns={4} spacing={5}>
-                            <FormLabel>Columna </FormLabel>
-                            <Box> <Input  htmlSize={9} width='auto' placeholder='Nombre' name='columnName' onChange={e => handleInputChange(e, i)} /> </Box>
-                            <Box><Input htmlSize={9} width='auto'  placeholder='Tipo' name='type' onChange={e => handleInputChange(e, i)} /></Box>
+                        <SimpleGrid columns={4} spacing={2}>
+                            
+                            <Box> <Input  htmlSize={8} width='auto' placeholder='Nombre' name='columnName' onChange={e => handleInputChange(e, i)} /> </Box>
+                            <Box><Input htmlSize={8} width='auto'  placeholder='Tipo' name='type' onChange={e => handleInputChange(e, i)} /></Box>
+                            <Box><Input htmlSize={2} width='auto'  placeholder='Es PK' name='pk' onChange={e => handleInputChange(e, i)} /></Box>
                             <Box>{inputList.length !== 1 && <Button colorScheme='gray' onClick={() => handleRemoveClick(i)}>Quitar Campo</Button>}</Box>
                             <Box>{inputList.length - 1 === i && <Button colorScheme='blue' onClick={handleAddClick} >Agregar Campo</Button>}</Box>
                         </SimpleGrid>
