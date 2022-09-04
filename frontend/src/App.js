@@ -6,6 +6,7 @@ import './App.css';
 import axios from 'axios'
 import TableComponent from './components/TableComponent';
 import ButtonInsertNewRow from './components/ButtonInsertNewRow';
+import ButtonModifyRow from './components/ButtonModifyRow';
 function App() {
 
 
@@ -92,6 +93,42 @@ function App() {
 
   }
 
+  const modifyRow = (oldData, newData) =>{
+    let payload ={
+      "tableName":"TablaNueva",
+      "tableIDs": [],   
+      "tableStructure": []
+    }
+    console.log('input data from form')
+    console.log(oldData)
+
+    //El registro que voy a modificar
+    Object.entries(oldData).map(item => {
+      return payload.tableIDs.push({
+          columnName: item[0], 
+          value: (item[1]),
+    })
+  })
+
+    //los nuevos valores
+    Object.entries(newData).map(item => {
+      return payload.tableStructure.push({
+        columnName: item[0], 
+        newValue: (item[1]),
+      })
+    })
+    
+    console.log('payload modify')
+    console.log(payload)
+    api.post('/modificarFila',payload).then(res => {
+      refreshRows()
+    })
+
+
+  }
+
+
+
   
 
   return (
@@ -99,7 +136,7 @@ function App() {
       <div className="App">
       <header className="App-header">
       <ButtonInsertNewRow headers={headers} insertRow={insertRow}>  Insertar Nueva Fila</ButtonInsertNewRow>
-        <TableComponent headers={headers} rows={rows} deleteRow={deleteRow}/>         
+        <TableComponent headers={headers} rows={rows} deleteRow={deleteRow} modifyRow={modifyRow} />         
       </header>
     </div>
     </ChakraProvider>

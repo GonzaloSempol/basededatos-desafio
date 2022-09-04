@@ -2,17 +2,7 @@ import {
     Button,
   } from '@chakra-ui/react'
 
-  import axios from 'axios'
 
-  const api = axios.create({
-    baseURL: 'http://localhost:8080'
-  })
-
-  let payload = {
-    "tableName":"TablaNueva",
-    "tableIDs": [
-      ]                    
-  }
 
 function ButtonDeleteComponent(props){
     return(
