@@ -2,12 +2,10 @@ import * as React from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
 import { useEffect, useState } from 'react';
 import './App.css';
-import {Button} from '@chakra-ui/react'
-
-import Row from './components/RowComponent';
 
 import axios from 'axios'
 import TableComponent from './components/TableComponent';
+import ButtonInsertNewRow from './components/ButtonInsertNewRow';
 function App() {
 
 
@@ -23,7 +21,6 @@ function App() {
   
 
   //Al cargar la pagina
-  
   useEffect(() =>{
     refreshRows()
   },[])
@@ -54,8 +51,7 @@ function App() {
     
     let payload = {
       "tableName":"TablaNueva",
-      "tableIDs": [
-        ]                    
+      "tableIDs": []                    
     }        
 
       Object.entries(data).map(item => {
@@ -64,20 +60,45 @@ function App() {
               value: (item[1]),
         })
       })
-
   
-  api.post('/eliminarFila',payload).then(res => {
-    refreshRows()
+     
+    api.post('/eliminarFila',payload).then(res => {
+      refreshRows()
     })
 
   }
+
+
+  const insertRow = (data) =>{
+    let payload ={
+      "tableName":"TablaNueva",
+      "tableStructure": []
+    }
+    console.log('input data from form')
+    console.log(data)
+    Object.entries(data).map(item => {
+      return payload.tableStructure.push({
+        columnName: item[0], 
+        value: (item[1]),
+      })
+    })
+    
+    console.log('payload')
+    console.log(payload)
+    api.post('/insertarFila',payload).then(res => {
+      refreshRows()
+    })
+
+
+  }
+
   
 
   return (
     <ChakraProvider>
       <div className="App">
       <header className="App-header">
-      <Button colorScheme='green'>Insertar Nueva Fila</Button>
+      <ButtonInsertNewRow headers={headers} insertRow={insertRow}>  Insertar Nueva Fila</ButtonInsertNewRow>
         <TableComponent headers={headers} rows={rows} deleteRow={deleteRow}/>         
       </header>
     </div>
