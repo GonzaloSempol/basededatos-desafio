@@ -1,4 +1,4 @@
-# obligatorio-HolaBaseDeDatos
+# desafio-HolaBaseDeDatos
 
 **Contiene:**
 
